@@ -1,8 +1,8 @@
-# Typescrip Playground
+# Typescript Playground
 
 ```
 git clone https://github.com/ddhp/ts-playground.git
-cd ts-playgound
+cd ts-playground
 yarn
 npx ts-node
 ```
