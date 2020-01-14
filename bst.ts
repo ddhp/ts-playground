@@ -77,10 +77,8 @@ class Bst {
         // switch the data with the biggest node on the left
         } else {
             if (node.left === null) {
-                console.log(`found and node ${node.data} has right ${node.right!.data}`);
                 node = node.right;
             } else if (node.right === null) {
-                console.log(`found and node ${node.data} has right ${node.left!.data}`);
                 node = node.left;
             } else {
                 console.log(`found and node ${node.data} has both`);
@@ -146,30 +144,39 @@ class Bst {
         this.inorderTraversal(node.right);
     }
 
-    // preorderIterator() {
-    //     const stack = new Stack();
-    //     let current = this.root;
-    //     if (current !== null) {
-    //         while(current !== null) {
-    //     }
-    //
-    //     while(current !== null) {
-    //         if (current.right) {
-    //             stack.push(current.right);
-    //         }
-    //         if (current.left) stack.push(current.left);
-    //         stack.push();
-    //     }
-    //     return {
-    //         next() {
-    //             if (current === null) return current;
-    //             if (current.left) stack.push(current.left);
-    //             if (current.right) stack.push(current.right);
-    //             stack.push(
-    //             return
-    //         },
-    //     };
-    // }
+    preorderIterator() {
+        const stack = new Stack();
+        stack.push(this.root);
+        return {
+            next() {
+                const current = stack.pop();
+                if (!current) return null;
+                if (current.right) stack.push(current.right);
+                if (current.left) stack.push(current.left);
+                return current;
+            },
+        };
+    }
+
+    inorderIterator() {
+        const stack = new Stack();
+        // stack.push(this.root);
+        let target = this.root;
+        while (target !== null) {
+            stack.push(target);
+            target = target.left;
+        }
+        console.log(stack);
+        return {
+            next() {
+                const current = stack.pop();
+                if (current === undefined) return current;
+                if (current.right) stack.push(current.right);
+                // if (current.left) stack.push(current.left);
+                return current;
+            },
+        };
+    }
 }
 
 const bst = new Bst();
@@ -182,8 +189,8 @@ bst.add(9);
 bst.add(14);
 bst.add(19);
 // bst.add(13);
-bst.preorderTraversal(bst.root);
-console.log('\n');
+// bst.preorderTraversal(bst.root);
+// console.log('\n');
 // console.log(bst.find(50, bst.root));
 bst.inorderTraversal(bst.root);
 console.log('\n');
@@ -191,7 +198,17 @@ console.log('\n');
 // console.log(bst.height(bst.root), bst.root);
 // console.log(bst.root!.left, bst.root!.right);
 // console.log(bst.findMax(bst.root!.left));
-bst.remove(17);
+const poi = bst.inorderIterator();
+console.log(poi.next().data);
+console.log(poi.next().data);
+console.log(poi.next().data);
+console.log(poi.next().data);
+console.log(poi.next().data);
+console.log(poi.next().data);
+console.log(poi.next().data);
+console.log(poi.next().data);
+// console.log(poi.next());
+// bst.remove(17);
 // console.log(bst.find(50, bst.root));
-bst.inorderTraversal(bst.root);
+// bst.preorderTraversal(bst.root);
 // console.log(bst.root, '/n', bst.root!.left);
