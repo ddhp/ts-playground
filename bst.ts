@@ -6,6 +6,19 @@ interface INode {
 
 type Nullable<T> = T | null;
 
+class Stack {
+    private list: any[]
+    constructor() {
+        this.list = [];
+    }
+    push<T>(elem: T): void {
+        this.list.push(elem);
+    }
+    pop() {
+        return this.list.pop();
+    }
+}
+
 class TreeNode implements INode {
     left: Nullable<INode>
     right: Nullable<INode>
@@ -55,6 +68,7 @@ class Bst {
 
     private removeFromSubtree(elem: number, node: Nullable<INode>): Nullable<INode> {
         if (node === null) return node;
+        console.log(`check ${elem} with Node data ${node.data}`);
         if (elem < node.data) {
             node.left = this.removeFromSubtree(elem, node.left);
         } else if (elem > node.data) {
@@ -62,15 +76,17 @@ class Bst {
         // found the element
         // switch the data with the biggest node on the left
         } else {
-            let biggestLeft = this.findMax(node.left);
-            if (biggestLeft !== null) {
-                const tmpData = node.data;
-                node.data = biggestLeft.data;
-                biggestLeft.data = tmpData;
-                // console.log(node.data, biggestLeft.data);
-                this.removeFromSubtree(elem, biggestLeft);
-            } else {
+            if (node.left === null) {
+                console.log(`found and node ${node.data} has right ${node.right!.data}`);
                 node = node.right;
+            } else if (node.right === null) {
+                console.log(`found and node ${node.data} has right ${node.left!.data}`);
+                node = node.left;
+            } else {
+                console.log(`found and node ${node.data} has both`);
+                const biggestLeft = this.findMax(node.left);
+                node.data = biggestLeft.data;
+                node.left = this.removeFromSubtree(biggestLeft.data, node.left);
             }
         }
         return node;
@@ -88,8 +104,8 @@ class Bst {
         }
     }
 
-    findMax(node: Nullable<INode>): Nullable<INode> {
-        if (node === null) return node;
+    findMax(node: INode): INode {
+        // if (node === null) return node;
         while (node.right !== null) {
             node = node.right;
         }
@@ -112,6 +128,15 @@ class Bst {
         return this.contains(elem, node.right);
     }
 
+    preorderTraversal(node: Nullable<INode>): void {
+        if (node === null) {
+            return;
+        }
+        console.log(node.data);
+        this.preorderTraversal(node.left);
+        this.preorderTraversal(node.right);
+    }
+
     inorderTraversal(node: Nullable<INode>): void {
         if (node === null) {
             return;
@@ -120,6 +145,31 @@ class Bst {
         console.log(node.data);
         this.inorderTraversal(node.right);
     }
+
+    // preorderIterator() {
+    //     const stack = new Stack();
+    //     let current = this.root;
+    //     if (current !== null) {
+    //         while(current !== null) {
+    //     }
+    //
+    //     while(current !== null) {
+    //         if (current.right) {
+    //             stack.push(current.right);
+    //         }
+    //         if (current.left) stack.push(current.left);
+    //         stack.push();
+    //     }
+    //     return {
+    //         next() {
+    //             if (current === null) return current;
+    //             if (current.left) stack.push(current.left);
+    //             if (current.right) stack.push(current.right);
+    //             stack.push(
+    //             return
+    //         },
+    //     };
+    // }
 }
 
 const bst = new Bst();
@@ -131,7 +181,9 @@ bst.add(23);
 bst.add(9);
 bst.add(14);
 bst.add(19);
-bst.add(13);
+// bst.add(13);
+bst.preorderTraversal(bst.root);
+console.log('\n');
 // console.log(bst.find(50, bst.root));
 bst.inorderTraversal(bst.root);
 console.log('\n');
