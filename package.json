@@ -1,0 +1,16 @@
+{
+  "name": "ts-playground",
+  "private": true,
+  "version": "0.0.0",
+  "description": "Playground for typescript",
+  "main": "index.ts",
+  "author": "ddhp",
+  "license": "MIT",
+  "dependencies": {
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.4"
+  },
+  "eslintConfig": {
+    "extends": "typescript"
+  }
+}
