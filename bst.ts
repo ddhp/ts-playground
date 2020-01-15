@@ -1,47 +1,6 @@
-import { Nullable } from './types';
+import { Nullable, INode, TreeNode } from './types';
 import Stack from './stack';
-import LinkList from './linklist';
-
-interface INode {
-    data: number;
-    left: Nullable<INode>;
-    right: Nullable<INode>;
-}
-
-class Queue {
-    private linklist = new LinkList();
-
-    add(elem: any): void {
-        this.linklist.add(elem);
-    }
-    remove() {
-        const removed = this.linklist.remove();
-        if (removed === null) {
-            return removed;
-        }
-        return removed.value;
-    }
-    peek() {
-        const target = this.linklist.peek();
-        if (target === null) {
-            return target;
-        }
-        return target.value;
-    }
-}
-
-
-class TreeNode implements INode {
-    left: Nullable<INode>
-    right: Nullable<INode>
-    data: number
-
-    constructor(left: Nullable<INode>, right: Nullable<INode>, data: number) {
-        this.left = left;
-        this.right = right;
-        this.data = data;
-    }
-}
+import Queue from './queue';
 
 class Bst {
     nodeCount: number;
@@ -272,7 +231,7 @@ console.log('\n');
 // console.log(bst.height(bst.root), bst.root);
 // console.log(bst.root!.left, bst.root!.right);
 // console.log(bst.findMax(bst.root!.left));
-const poi = bst.levelorderIterator();
+const poi = bst.inorderIterator();
 console.log(poi.next()!.data);
 console.log(poi.next()!.data);
 console.log(poi.next()!.data);

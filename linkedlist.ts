@@ -13,7 +13,7 @@ class ListNode implements INode {
     }
 }
 
-export default class LinkList {
+export default class LinkedList {
     private current: Nullable<INode> = null
 
     add(elem: any): boolean {
