@@ -16,6 +16,7 @@ const H: (name: string, age: number, sex: string) => number = (name: string, age
 //
 // Hash Table
 // an array which has object stored in the index generated from it's hash function
+// able to map the key from an entry into a specific range
 //
 // Hash collision
 // since H(x) and H(y) can potentially output the same index
@@ -25,3 +26,7 @@ const H: (name: string, age: number, sex: string) => number = (name: string, age
 // 2. open addressing:
 //      - next key hash = H(k) + P(k, x) mod N where x is an increment value (x += 1) and N is the size of the table/array
 //      - hash function and probe functions are usually paired
+//      - removing: put a tombstone when removed an entry
+//        - keep searching when hitting a tombstone while finding an entry, set the found entry to the first tombstone index
+//
+//
