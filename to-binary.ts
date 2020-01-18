@@ -1,6 +1,6 @@
 type TToBinary = (num: number) => string;
 
-const toBinary: TToBinary = num => {
+export const toBinary: TToBinary = num => {
   let result = '';
   while (num > 0) {
     const next = Math.floor(num / 2);
@@ -10,8 +10,8 @@ const toBinary: TToBinary = num => {
   }
   return result;
 }
-console.log(toBinary(5));
-console.log(toBinary(1024));
+// console.log(toBinary(5));
+// console.log(toBinary(1024));
 
 const toHex: TToBinary = num => {
   const map = [0,1,2,3,4,5,6,7,8,9,'a','b','c','d','e','f'];
@@ -25,7 +25,7 @@ const toHex: TToBinary = num => {
   return result;
 };
 
-console.log(toHex(300));
+// console.log(toHex(300));
 
 type FHexToDecimal = (hex: string) => number;
 const hexToDecimal: FHexToDecimal = hex => {
@@ -62,4 +62,4 @@ const hexToDecimal: FHexToDecimal = hex => {
   return result;
 };
 
-console.log(hexToDecimal('12c'));
+// console.log(hexToDecimal('12c'));
