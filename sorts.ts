@@ -53,7 +53,11 @@ const bubbleSort = (values: number[]) => {
 
 // console.log(bubbleSort([5,4,3,2,1]));
 
-const mergeSort = (values: number[]) => {
+// complexity
+// log(n) levels
+// tasks for each level: 2^level each input size is n/2^level
+// in total nlog(n) times
+export const mergeSort = (values: number[]) => {
   const halfIndex = Math.floor(values.length/2);
   let fh = values.slice(0, halfIndex);
   let sh = values.slice(halfIndex);
