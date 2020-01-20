@@ -38,30 +38,39 @@ console.log(inversionBruteForce([1,3,5,2,4,6]));
 // }
 
 type Response = [number[], number];
+type TFnOne = (a: number[]) => [number[], number];
+type TFnTwo = (a: number[], b: number[]) => [number[], number];
 
-const mergeAndCount = (a: number[], b: number[]) => {
-  return [[0], 0];
+const mergeAndCount: TFnTwo = (a: number[], b: number[]) => {
+  let count = 0;
+  const sorted = [];
+  let ai = 0;
+  let bi = 0;
+  for (let i = 0; i < a.length + b.length; i++) {
+    if (a[ai] < b[bi] && ai !== a.length) {
+      sorted.push(a[ai]);
+      ai += 1
+    } else {
+      if (ai !== a.length) {
+          count += (a.length - ai);
+      }
+      sorted.push(b[bi]);
+      bi += 1;
+    }
+  }
+  return [sorted, count];
 }
 
-const inversionCounts = (values: number[]) => {
+const inversionCounts: TFnOne = (values: number[]) => {
   if (values.length < 2) {
     return [values, 0];
   }
   const halfIndex = Math.floor(values.length/2);
-  // const leftRes = inversionCounts(values.slice(0, halfIndex));
-  // const sortedLeft = leftRes[0];
-  // const leftCount = leftRes[1];
-  // const rightRes = inversionCounts(values.slice(halfIndex));
-  // const sortedRight = rightRes[0];
-  // const rightCount = rightRes[1];
-  const [sortedLeft, leftCount] = inversionCounts(values.slice(halfIndex));
+  const [sortedLeft, leftCount] = inversionCounts(values.slice(0, halfIndex));
   const [sortedRight, rightCount] = inversionCounts(values.slice(halfIndex));
   const [sorted, splitCount] = mergeAndCount(sortedLeft, sortedRight);
-  // const mergeRes = mergeAndCount(sortedLeft, sortedRight);
-  // const sorted = mergeRes[0];
-  // const splitCount = mergeRes[1];
   const totalCount: number = leftCount + rightCount + splitCount;
   return [sorted, totalCount];
 };
-// console.log(inversion([1,3,5,2,4,6]));
-console.log(inversion([3,1,5,2,4,6]));
+console.log(inversionCounts([1,3,5,2,4,6]));
+// console.log(inversionCounts([3,1,5,2,4,6]));
